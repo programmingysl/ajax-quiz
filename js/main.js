@@ -7,9 +7,10 @@ $(document).ready(
         $("#submitBTN").click(function(event){
             event.preventDefault();
 
+            /* search episodes: 'http://api.tvmaze.com/singlesearch/shows?q='+search+'&embed=episodes'*/
 
             var search = $('#search').val();
-            $.ajax('http://api.tvmaze.com/singlesearch/shows?q='+search+'&embed=episodes', {
+            $.ajax('http://api.tvmaze.com/search/shows?q='+search, {
                 method: "GET",
                 dataType: "json"
             })
@@ -23,13 +24,13 @@ $(document).ready(
                         $('#episodeList').text('');
 
 
-                        data._embedded.episodes.forEach(function (episode) {
+                        data.forEach(function (result) {   //data._embedded.episodes.forEach(function (episode) {
 
                             $('#episodeList').append('<tr>'+
-                                '<td>' + episode.season + '</td>' +
-                                '<td>' + episode.number + '</td>' +
-                                '<td>' + episode.name + '</td>' +
-                                '<td>' + episode.summary + '</td>' +
+                                '<td><a href="http://api.tvmaze.com/singlesearch/shows?q='+result.show.name+'&embed=episodes">' + result.show.name + '</a></td>' +
+                                '<td>' + result.show.status + '</td>' +
+                                '<td>' + result.show.name + '</td>' +
+                                '<td>' + result.show.summary + '</td>' +
                                 +' </tr>')
                         })
 
