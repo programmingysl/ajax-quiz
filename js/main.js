@@ -9,7 +9,6 @@ $(document).ready(
 
 
             var search = $('#search').val();
-            alert(search);
             $.ajax('http://api.tvmaze.com/singlesearch/shows?q='+search+'&embed=episodes', {
                 method: "GET",
                 dataType: "json"
@@ -20,10 +19,11 @@ $(document).ready(
                         //Add the name
                         $('#name').html(data.name);
                         //Add the episodes
+
+                        $('#episodeList').text('');
+
+
                         data._embedded.episodes.forEach(function (episode) {
-
-
-
 
                             $('#episodeList').append('<tr>'+
                                 '<td>' + episode.season + '</td>' +
